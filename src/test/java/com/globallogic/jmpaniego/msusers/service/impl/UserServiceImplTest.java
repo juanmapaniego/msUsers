@@ -2,9 +2,7 @@ package com.globallogic.jmpaniego.msusers.service.impl;
 
 import com.globallogic.jmpaniego.msusers.error.exception.UserException;
 import com.globallogic.jmpaniego.msusers.mapper.PhoneMapper;
-import com.globallogic.jmpaniego.msusers.model.Phone;
 import com.globallogic.jmpaniego.msusers.model.User;
-import com.globallogic.jmpaniego.msusers.model.dto.PhoneDTO;
 import com.globallogic.jmpaniego.msusers.model.dto.SignUpRequestDTO;
 import com.globallogic.jmpaniego.msusers.repository.UserRepository;
 import com.globallogic.jmpaniego.msusers.utility.Util;
@@ -13,12 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 

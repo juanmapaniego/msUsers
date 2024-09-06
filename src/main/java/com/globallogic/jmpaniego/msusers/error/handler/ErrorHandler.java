@@ -4,7 +4,6 @@ import com.globallogic.jmpaniego.msusers.error.exception.InvalidTokenException;
 import com.globallogic.jmpaniego.msusers.error.exception.UserException;
 import com.globallogic.jmpaniego.msusers.model.dto.ErrorDTO;
 import com.globallogic.jmpaniego.msusers.model.dto.ErrorResponseDTO;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

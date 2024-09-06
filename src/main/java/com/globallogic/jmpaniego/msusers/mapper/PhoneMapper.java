@@ -4,7 +4,6 @@ import com.globallogic.jmpaniego.msusers.model.Phone;
 import com.globallogic.jmpaniego.msusers.model.dto.PhoneDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface PhoneMapper {
