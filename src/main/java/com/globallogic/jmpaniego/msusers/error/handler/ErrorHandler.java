@@ -8,6 +8,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,7 +29,7 @@ public class ErrorHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
         List<ErrorDTO> errors = e.getAllErrors().stream()
                 .map(error -> {
@@ -48,5 +49,12 @@ public class ErrorHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
 
-
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    public ResponseEntity<ErrorResponseDTO> handleMissingRequestHeaderException(MissingRequestHeaderException e){
+        ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
+                .error(
+                        Collections.singletonList(ErrorDTO.builder().code(HttpStatus.BAD_REQUEST.value()).timestamp(LocalDateTime.now()).detail(e.getMessage()).build())
+                ).build();
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "ce5e76e7-9746-4687-985c-0439d4f10941",
+		"name": "Msusers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12389829",
+		"_collection_link": "https://martian-astronaut-234723.postman.co/workspace/My-Workspace~804443b5-9390-4cb7-8aa2-9aa97e3b659e/collection/12389829-ce5e76e7-9746-4687-985c-0439d4f10941?action=share&source=collection_link&creator=12389829"
+	},
+	"item": [
+		{
+			"name": "SignUp Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.collectionVariables.set('token', response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic VEtGN2FBdGM1SjNuTFJtR2lBbGc1RXg1a0t3R0ZBaHo6T0hZcWl0NTROd3ZSbFZtNQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Juan\",\r\n\t\"email\": \"juaaaaan@gmail.com\",\r\n\t\"password\": \"W13school\",\r\n\t\"phones\": [\r\n\t\t{\r\n\t\t\t\"number\": 1,\r\n\t\t\t\"citycode\": 2,\r\n\t\t\t\"countrycode\": \"+54\"\r\n\t\t}\r\n\t]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp Validation error",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic VEtGN2FBdGM1SjNuTFJtR2lBbGc1RXg1a0t3R0ZBaHo6T0hZcWl0NTROd3ZSbFZtNQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Juan\",\r\n\t\"email\": \"jun.com\",\r\n\t\"password\": \"13school\",\r\n\t\"phones\": [\r\n\t\t{\r\n\t\t\t\"number\": 1,\r\n\t\t\t\"citycode\": 2,\r\n\t\t\t\"countrycode\": \"+54\"\r\n\t\t}\r\n\t]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp error- email already exist (if executed after signup success)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic VEtGN2FBdGM1SjNuTFJtR2lBbGc1RXg1a0t3R0ZBaHo6T0hZcWl0NTROd3ZSbFZtNQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Juan\",\r\n\t\"email\": \"jun@gmail.com\",\r\n\t\"password\": \"W13school\",\r\n\t\"phones\": [\r\n\t\t{\r\n\t\t\t\"number\": 1,\r\n\t\t\t\"citycode\": 2,\r\n\t\t\t\"countrycode\": \"+54\"\r\n\t\t}\r\n\t]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login succes (if executed after signup success)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.collectionVariables.set('token', response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login invalid token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.collectionVariables.set('token', response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login not token sended",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.collectionVariables.set('token', response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
