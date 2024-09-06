@@ -1,0 +1,49 @@
+package com.globallogic.jmpaniego.msusers.error.handler;
+
+import com.globallogic.jmpaniego.msusers.error.exception.UserException;
+import com.globallogic.jmpaniego.msusers.model.dto.ErrorDTO;
+import com.globallogic.jmpaniego.msusers.model.dto.ErrorResponseDTO;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestControllerAdvice
+public class ErrorHandler {
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUserException(UserException ue){
+        ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
+                .error(
+                        Collections.singletonList(ErrorDTO.builder().code(HttpStatus.CONFLICT.value()).timestamp(LocalDateTime.now()).detail(ue.getMessage()).build())
+                ).build();
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        List<ErrorDTO> errors = e.getAllErrors().stream()
+                .map(error -> {
+                        return ErrorDTO.builder()
+                            .code(HttpStatus.CONFLICT.value())
+                            .timestamp(LocalDateTime.now())
+                            .detail(error.getDefaultMessage())
+                            .build();
+                    }
+                )
+                .collect(Collectors.toList());
+
+        ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
+                .error(
+                        errors
+                ).build();
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
+    }
+}

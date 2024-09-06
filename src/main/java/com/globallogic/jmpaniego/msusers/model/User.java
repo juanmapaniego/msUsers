@@ -1,5 +1,6 @@
 package com.globallogic.jmpaniego.msusers.model;
 
+import com.globallogic.jmpaniego.msusers.model.dto.SignUpRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -37,4 +39,14 @@ public class User {
     @CreatedDate
     private LocalDate createdAt;
     private LocalDateTime lastLogin;
+
+    public User(SignUpRequestDTO signUpRequestDTO) {
+        this.id = UUID.randomUUID();
+        this.active = true;
+        this.name = signUpRequestDTO.getName();
+        this.password = signUpRequestDTO.getPassword();
+        this.email = signUpRequestDTO.getEmail();
+        this.phones = signUpRequestDTO.getPhones().stream().map(Phone::new).collect(Collectors.toList());
+        this.lastLogin = LocalDateTime.now(); //considero signup como login ya que se le retorna un token
+    }
 }

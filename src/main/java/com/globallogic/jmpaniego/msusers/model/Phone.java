@@ -1,5 +1,6 @@
 package com.globallogic.jmpaniego.msusers.model;
 
+import com.globallogic.jmpaniego.msusers.model.dto.PhoneDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,9 @@ public class Phone {
     private Integer cityCode;
     private String countryCode;
 
-
+    public Phone(PhoneDTO phoneDTO) {
+        this.number = phoneDTO.getNumber();
+        this.cityCode = phoneDTO.getCityCode();
+        this.countryCode = phoneDTO.getCountryCode();
+    }
 }
