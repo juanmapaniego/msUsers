@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -57,6 +56,7 @@ class UserRepositoryTest {
 
     @Test
     void emailNotExists(){
+
         String emailNotExist ="1234@gmail.com";
         assertNull(userRepository.findByEmail(emailNotExist).orElse(null));
     }

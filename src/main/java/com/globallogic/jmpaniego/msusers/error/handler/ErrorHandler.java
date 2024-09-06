@@ -1,5 +1,6 @@
 package com.globallogic.jmpaniego.msusers.error.handler;
 
+import com.globallogic.jmpaniego.msusers.error.exception.InvalidTokenException;
 import com.globallogic.jmpaniego.msusers.error.exception.UserException;
 import com.globallogic.jmpaniego.msusers.model.dto.ErrorDTO;
 import com.globallogic.jmpaniego.msusers.model.dto.ErrorResponseDTO;
@@ -18,11 +19,11 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ErrorHandler {
-    @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserException(UserException ue){
+    @ExceptionHandler({InvalidTokenException.class, UserException.class})
+    public ResponseEntity<ErrorResponseDTO> handleUserException(RuntimeException e){
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
                 .error(
-                        Collections.singletonList(ErrorDTO.builder().code(HttpStatus.CONFLICT.value()).timestamp(LocalDateTime.now()).detail(ue.getMessage()).build())
+                        Collections.singletonList(ErrorDTO.builder().code(HttpStatus.CONFLICT.value()).timestamp(LocalDateTime.now()).detail(e.getMessage()).build())
                 ).build();
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
@@ -46,4 +47,6 @@ public class ErrorHandler {
                 ).build();
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
+
+
 }

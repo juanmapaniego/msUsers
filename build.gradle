@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.5.14'
 	id 'java'
+	id 'jacoco'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -31,4 +32,6 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+
 }
+
