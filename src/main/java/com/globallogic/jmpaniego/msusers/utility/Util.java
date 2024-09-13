@@ -1,6 +1,6 @@
 package com.globallogic.jmpaniego.msusers.utility;
 
-import com.globallogic.jmpaniego.msusers.error.exception.InvalidTokenException;
+import com.globallogic.jmpaniego.msusers.exception.InvalidTokenException;
 import com.globallogic.jmpaniego.msusers.model.User;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;

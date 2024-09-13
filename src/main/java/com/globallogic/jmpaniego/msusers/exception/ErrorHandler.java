@@ -1,7 +1,5 @@
-package com.globallogic.jmpaniego.msusers.error.handler;
+package com.globallogic.jmpaniego.msusers.exception;
 
-import com.globallogic.jmpaniego.msusers.error.exception.InvalidTokenException;
-import com.globallogic.jmpaniego.msusers.error.exception.UserException;
 import com.globallogic.jmpaniego.msusers.model.dto.ErrorDTO;
 import com.globallogic.jmpaniego.msusers.model.dto.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

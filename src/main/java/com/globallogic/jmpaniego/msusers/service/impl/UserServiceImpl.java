@@ -1,7 +1,7 @@
 package com.globallogic.jmpaniego.msusers.service.impl;
 
-import com.globallogic.jmpaniego.msusers.error.exception.InvalidTokenException;
-import com.globallogic.jmpaniego.msusers.error.exception.UserException;
+import com.globallogic.jmpaniego.msusers.exception.InvalidTokenException;
+import com.globallogic.jmpaniego.msusers.exception.UserException;
 import com.globallogic.jmpaniego.msusers.mapper.PhoneMapper;
 import com.globallogic.jmpaniego.msusers.model.User;
 import com.globallogic.jmpaniego.msusers.model.dto.LoginResponseDTO;
