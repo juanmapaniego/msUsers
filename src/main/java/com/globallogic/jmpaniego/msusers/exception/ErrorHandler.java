@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ErrorHandler {
-    @ExceptionHandler({InvalidTokenException.class, UserException.class})
+    @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorResponseDTO> handleUserException(RuntimeException e){
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
                 .error(
@@ -25,12 +25,21 @@ public class ErrorHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ErrorResponseDTO> handleInvalidTokenException(InvalidTokenException e){
+        ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
+                .error(
+                        Collections.singletonList(ErrorDTO.builder().code(HttpStatus.UNAUTHORIZED.value()).timestamp(LocalDateTime.now()).detail(e.getMessage()).build())
+                ).build();
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
         List<ErrorDTO> errors = e.getAllErrors().stream()
                 .map(error -> {
                         return ErrorDTO.builder()
-                            .code(HttpStatus.CONFLICT.value())
+                            .code(HttpStatus.BAD_REQUEST.value())
                             .timestamp(LocalDateTime.now())
                             .detail(error.getDefaultMessage())
                             .build();
@@ -42,7 +51,7 @@ public class ErrorHandler {
                 .error(
                         errors
                 ).build();
-        return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
